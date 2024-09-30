@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <string.h>
 #include <stdlib.h>
 
 int main() {
-    key_t key = ftok("shmfile", 65); // Generate unique key (same as server)
+    key_t key = ftok("shmfile", 65); // Generate unique key
 
-    int shmid = shmget(key, 1024, 0666); // Access shared memory segment created by server
+    int shmid = shmget(key, 1024, 0666 | IPC_CREAT); // Create shared memory segment
 
     if (shmid == -1) {
         perror("shmget failed");
@@ -19,8 +20,10 @@ int main() {
         exit(1);
     }
 
-    // Read data from shared memory
-    printf("Client reads: %s\n", str);
+    // Write data to shared memory
+    char server_msg[] = "Hello from Server!";
+    strcpy(str, server_msg);
+    printf("Server wrote: %s\n", server_msg);
 
     shmdt(str); // Detach from shared memory
 
