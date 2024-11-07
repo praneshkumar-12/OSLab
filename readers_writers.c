@@ -5,7 +5,6 @@
 
 pthread_mutex_t resource_mutex;   // Controls access to the shared resource
 pthread_mutex_t read_count_mutex; // Controls access to the read_count variable
-pthread_cond_t writer_cond;        // Condition variable for writers
 
 int read_count = 0; // Number of active readers
 int shared_data = 0; // Shared resource
@@ -68,7 +67,6 @@ int main() {
 
     pthread_mutex_init(&resource_mutex, NULL);
     pthread_mutex_init(&read_count_mutex, NULL);
-    pthread_mutex_init(&writer_cond, NULL);
 
     // Create reader threads
     for (int i = 0; i < num_readers; i++) {
