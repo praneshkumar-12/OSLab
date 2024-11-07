@@ -5,7 +5,6 @@
 
 void list_directory(const char *path) {
     struct dirent *entry;
-    struct stat info;
     
     DIR *dir = opendir(path);
     if (dir == NULL) {
@@ -22,20 +21,7 @@ void list_directory(const char *path) {
             continue;
         }
 
-        // Get the path for each entry
-        char fullPath[1024];
-        snprintf(fullPath, sizeof(fullPath), "%s/%s", path, entry->d_name);
-
-        // Get information about the entry
-        if (stat(fullPath, &info) == 0) {
-            if (S_ISDIR(info.st_mode)) {
-                printf("├── [DIR]  %s\n", entry->d_name);
-            } else {
-                printf("├── [FILE] %s\n", entry->d_name);
-            }
-        } else {
-            perror("Unable to get file status");
-        }
+        printf("%s\n", entry->d_name);
     }
 
     closedir(dir);

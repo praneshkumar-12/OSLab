@@ -152,3 +152,19 @@ int main() {
 
     return 0;
 }
+
+// LRU Page Replacement Simulation:
+// Page 4 -> Frames: 4 - -
+// Page 2 -> Frames: 4 2 -
+// Page 1 -> Frames: 4 2 1
+// Page 4 -> Frames: 4 2 1
+// Page 3 -> Frames: 4 3 1
+// Page 2 -> Frames: 4 3 2
+// Page 1 -> Frames: 1 3 2
+// Page 5 -> Frames: 1 5 2
+// Total Page Faults: 7
+
+// Enter the number of pages: 8
+// Enter the page reference string:
+// 4 2 1 4 3 2 1 5
+// Enter the number of frames: 3
